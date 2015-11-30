@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Candy Cane Example</title>
+  <style>
+    html, body {
+      background: #E9D460;
+      color: #444;
+      font-family: sans-serif;
+    }
+
+    #candy-cane-example {
+      border: none;
+      border-left: solid 3px #888;
+      box-sizing: border-box;
+      height: 60%;
+      left: 15%;
+      margin: 0 auto;
+      padding-top: 2em;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-55%);
+      width: 70%;
+
+      -webkit-transition: 0.5s ease;
+      -moz-transition: 0.5s ease;
+      -ms-transition: 0.5s ease;
+      -o-transition: 0.5s ease;
+      transition: 0.5s ease;
+    }
+
+    .candy-cane-stripe-form {
+      display: block;
+      padding-left: 10%;
+      width: 90%;
+    }
+
+    .candy-cane-stripe-form input {
+      border: solid 2px #222;
+      border: none;
+      height: 65px;
+      margin: 0;
+      width: 100%;
+    }
+
+    .candy-cane-stripe-form button {
+      background: #2ecc71;
+      border: solid 2px #222;
+      border-top: none;
+      border: none;
+      display: block;
+      font-size: 1em;
+      height: 80px;
+      margin: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="candy-cane-example">
+    <form class="candy-cane-stripe-form">
+      <input type="text" id="new-stripe" placeholder="Give me a color and I'll do what I can" required />
+      <button id="add-stripe">Add a stripe to the candy cane!</button>
+    </form>
+  </div>
+  <script src="candy-cane.js"></script>
+  <script>
+    var myCandyCane = CandyCane("#candy-cane-example");
+    myCandyCane.addStripe("blue");
+
+    (function attachNewStripeHandler() {
+      var stripeInput = document.querySelector("#new-stripe");
+      var stripeButton = document.querySelector("#add-stripe");
+      stripeButton.addEventListener("click", handleNewStripe);
+      stripeButton.addEventListener("touchend", handleNewStripe);
+
+      function handleNewStripe(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        var newColor = stripeInput.value;
+        if (!newColor) {
+          // validate
+          alert("Yo! Give me a real color.")
+          return;
+        }
+        myCandyCane.addStripe(newColor);
+
+        stripeInput.value = "";
+      }
+    })();
+  </script>
+</body>
+</html>
